@@ -1,0 +1,58 @@
+@import "reset";
+@import "global";
+@import "kludge";
+
+html, body {
+    height: 100%;
+}
+body {
+    @include gradient-radial-1();
+}
+#blank-wrapper {
+    
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 32em;
+    height: 10em;
+    margin: auto;
+    text-align: center;
+    padding: 1.5em;
+    background-color: $x2-black-dark;
+    background-image: url( '../images/carbon-fiber.png' );
+    border: 1px solid $x2-white-darker;
+    @include border-radius( .5em );
+    @include box-shadow( 7px, 7px, 5px, 0, $x2-black-dark, .75 );
+    
+    h2 {
+        font-family: $x2-font-bold, $font-stack; /* $x2-font-logo, $x2-font, temporarily removed */
+        position: relative;
+        top: -2.15em;
+        margin-bottom: 0em;
+        text-align: center;
+        font-size: 4em;
+        font-weight: bold;
+        color: rgba( 0, 0, 0, 1 );
+        color: $x2-black-darkest;
+        text-shadow: 2px 2px 3px rgba( 255, 255, 255, 0.2 );
+        border: 0px dotted pink;
+        
+        /* image masked text
+        background: url( '../images/soccer-field.jpg' ) no-repeat;
+        background-position: 50% 90%;
+       -webkit-background-clip: text;
+       -webkit-text-fill-color: transparent;
+        */
+    }
+    #blank {
+        position: relative;
+        top: -2em;
+        color: $x2-white-darker;
+        font-weight: bold;
+    }
+}
+#blank-wrapper:hover {
+    border-color: $x2-blue;
+}

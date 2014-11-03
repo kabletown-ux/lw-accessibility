@@ -1,0 +1,58 @@
+/* 
+    Created on : Jan 14, 2014, 2:30:59 PM
+    Author     : rruiz
+*/
+@import "reset";
+@import "global";
+@import "kludge";
+
+body {
+  font-family: $font-stack;
+  background-color: $color-neutral;
+  margin: 1em;
+  border: 2x dotted $debug-border;
+}
+a:link {
+  color: $color-contrast;
+  text-decoration: none;
+  /*padding-bottom: 1px;*/
+}
+a:visited {   
+  color: $color-contrast-darker;
+}
+a:hover, a:focus {
+    color: $color-contrast-lighter;
+    /*border-bottom: 1px dotted $color-contrast-lighter;*/
+    /* text-decoration: underline;  */
+}
+a:active {
+  color: $color-contrast-lightest;
+} 
+
+.message-title {
+    font-weight: bold;
+}
+.message-title-error {
+    @extend .message-title;
+    @include letterpress( red, .75, white );
+}
+.message-title-success {
+    @extend .message-title;
+    @include letterpress( green, .75, white );
+}
+.message {
+    border: 2px solid #333333;
+    @include border-radius( .5em );
+    @include gradient-convex-1( #EEEEEE, #CCCCCC );
+    margin-bottom: .5em;
+    padding: 1em;
+}
+.message-success {
+    @extend .message;
+    border-color: green;
+}
+.message-error {
+    @extend .message;
+    border-color: red;
+}
+
