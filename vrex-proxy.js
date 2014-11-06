@@ -37,8 +37,11 @@ var nlpPath = "/vsp/v1/nlp";
 var shPath = "/vsp/v1/speech";
 var kkPath = "/vsp/v1/knockknock";
 var alivePath = "/vsp/alive.jsp";
+var VREX_TIMEOUT = 30000;
 
 var id2CID = {};
+
+var idmap = require('./device-lookup.json');
 
 /**********************************************
 ***                                         ***
@@ -46,15 +49,64 @@ var id2CID = {};
 ***                                         ***
 **********************************************/
 
+// GET call for client to get the device lookup list
+vrexProxy.get('/getDevices',function (req, res, next) {
+	console.log( "/getDevices request at "+(new Date(new Date()-254000)));
+	var response = JSON.stringify(idmap);
+	res.writeHead(200, {
+	  'Content-Length': Buffer.byteLength(response),
+	  'Content-Type': 'text/plain'
+	});
+	res.write(response);
+	res.end();	
+});
+
+// GET call to add a device to the lookup list
+vrexProxy.get('/setDevice',function (req, res, next) {
+	console.log( "/setDevice request ["+req.params.id+","+req.params.guid+","+
+		req.params.deviceId+","+req.params.alias+"] at "+(new Date(new Date()-254000)));
+	var response;
+	if(req.params.id&&req.params.guid&&req.params.deviceId) {
+		if(idmap.hasOwnProperty(req.params.id)) {
+			response = "/setDevice "+req.params.id+" modified ["+req.params.guid+","+req.params.deviceId+","+req.params.alias+"]";
+		} else {
+			
+			response = "/setDevice "+req.params.id+" added ["+req.params.guid+","+req.params.deviceId+","+req.params.alias+"]";
+		}
+		idmap[req.params.id] = {};
+		idmap[req.params.id].guid = req.params.guid;
+		idmap[req.params.id].deviceId = req.params.deviceId;
+		idmap[req.params.id].alias = req.params.alias;
+		res.writeHead(200, {
+		  'Content-Length': Buffer.byteLength(response),
+		  'Content-Type': 'text/plain'
+		});
+	} else {
+		response = "/setDevice missing required parameters";
+		res.writeHead(418, {
+		  'Content-Length': Buffer.byteLength(response),
+		  'Content-Type': 'text/plain'
+		});
+	}
+	res.write(response);
+	res.end();	
+});
+
 // GET call for client to send a knockknock to vrex
 vrexProxy.get('/knockknock',function (req, res, next) {
-	console.log( "/knockknock request for guid "+req.params.guid+" and deviceId "+req.params.deviceId+
+	var guid = req.params.guid;
+	var deviceId = req.params.deviceId;
+	if(req.params.id) {
+		guid = idmap[req.params.id].guid;
+		deviceId = idmap[req.params.id].deviceId;
+	}
+	console.log( "/knockknock request for guid "+guid+" and deviceId "+deviceId+
 					" at "+(new Date(new Date()-254000)));
 	var proxyRes;
-	if(req.params.guid&&req.params.deviceId) {
+	if(guid&&deviceId) {
 		var kkParams={
-			'guid': req.params.guid,
-			'deviceId': req.params.deviceId,
+			'guid': guid,
+			'deviceId': deviceId,
 			'appId': "test-bdd8ab6e-0b97-4fe7-b37e-3850afce04bc",
 			'prodId': "U0HycKR2HuPlHNSpKwk2ZEN0xNW/QU83",
 		};
@@ -67,7 +119,7 @@ vrexProxy.get('/knockknock',function (req, res, next) {
 		   method: "POST",
 		   headers: headers,
 		   form: kkParams,
-		   timeout: 5000
+		   timeout: VREX_TIMEOUT
 		}, function(error, result, data){ 
 			if(error){
 				console.log("vrex error: "+error);
@@ -77,7 +129,7 @@ vrexProxy.get('/knockknock',function (req, res, next) {
 				if(vrexRES.cid) {
 					/* console.log(data); */
 					console.log("cid = "+vrexRES.cid);
-					id2CID[req.params.deviceId] = vrexRES.cid;
+					id2CID[deviceId] = vrexRES.cid;
 					proxyRes = vrexRES.cid;
 					success = 200;
 				} else {
@@ -96,10 +148,10 @@ vrexProxy.get('/knockknock',function (req, res, next) {
 	} else {
 		// missing guid or deviceId
 		proxyRes = "vrex-proxy call is missing: ";
-		if(!req.params.guid) {
+		if(!guid) {
 			proxyRes = proxyRes + "guid ";
 		}
-		if(!req.params.deviceId) {
+		if(!deviceId) {
 			proxyRes = proxyRes + "deviceId ";
 		}
 		res.writeHead(418, {
@@ -113,11 +165,15 @@ vrexProxy.get('/knockknock',function (req, res, next) {
 
 // GET call for client to send a command transcript to vrex
 vrexProxy.get('/command',function (req, res, next) {
-	console.log( "/command request ["+req.params.transcript+"] for deviceId "+req.params.deviceId+
+	var deviceId = req.params.deviceId;
+	if(req.params.id) {
+		deviceId = idmap[req.params.id].deviceId;
+	}
+	console.log( "/command request ["+req.params.transcript+"] for deviceId "+deviceId+
 					" at "+(new Date(new Date()-254000)));
 	var proxyRes;
-	if(req.params.transcript&&req.params.deviceId) {
-		var cid = id2CID[req.params.deviceId];
+	if(req.params.transcript&&deviceId) {
+		var cid = id2CID[deviceId];
 		if(cid) {
 			console.log("vrex nlp call with cid: "+cid);
 						
@@ -127,7 +183,7 @@ vrexProxy.get('/command',function (req, res, next) {
 			   uri: vrexURL+shPath+queryParams, 
 			   method: "POST",
 			   body: '{"transcription":"'+req.params.transcript+'","reza":"true"}',
-			   timeout: 5000
+			   timeout: VREX_TIMEOUT
 			}, function(error, result, data){ 
 				if(error){
 					console.log("vrex error: "+error);
@@ -146,7 +202,7 @@ vrexProxy.get('/command',function (req, res, next) {
 			});
 		} else {
 			// no cid in lookup
-			proxyRes = "vrex-proxy requires knockknock before command [deviceId="+req.params.deviceId+"]";
+			proxyRes = "vrex-proxy requires knockknock before command [deviceId="+deviceId+"]";
 			console.log(proxyRes);
 			res.writeHead(418, {
 			  'Content-Length': Buffer.byteLength(proxyRes),
@@ -158,7 +214,7 @@ vrexProxy.get('/command',function (req, res, next) {
 	} else {
 		// missing transcript or deviceId
 		proxyRes = "vrex-proxy call is missing: ";
-		if(!req.params.deviceId) {
+		if(!deviceId) {
 			proxyRes = proxyRes + "deviceId ";
 		}
 		if(!req.params.transcript) {
