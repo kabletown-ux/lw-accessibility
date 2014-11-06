@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>X1 App Prototype Text Query</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css_temp/normalization.css" />
+    <link rel="stylesheet" type="text/css" href="css_temp/brand.css" />
+</head>
+<body>
+    <div id="showOverlay" class="container">
+        <div class="navigation" role="navigation" aria-hidden="true">
+            <div class="utilities">
+                <button id="utilsLauncher" type="button" class="utility utils-launcher" aria-controls="utilityItems"><span class="accessibly-hidden">show utilities</span></button>
+                <ul id="utilityItems" class="util-items" aria-expanded="false" aria-hidden="true">
+                    <li class="util-item"><a href="#" class="btn utility search" style="display: none"><span class="accessibly-hidden">search</span></a></li>
+                    <li class="util-item"><a href="#" class="btn utility settings" style="display: none"><span class="accessibly-hidden">settings</span></a></li>
+                    <li class="util-item"><a href="#" class="btn utility help" style="display: none"><span class="accessibly-hidden">help</span></a></li>
+                </ul>
+            </div>
+            <div class="shortcuts">
+                <a href="#" class="btn utility shortcuts"><span class="accessibly-hidden">shortcuts</span></a>
+            </div>
+            <div class="xfinity-controls">
+                <button type="button" id="launchXfinity" class="xfinity-control-btn"><span class="accessibly-hidden">launch </span>xfinity</button>
+                <button type="button" id="launchSpeakCommand" class="xfinity-control-btn launch-command-control-btn"><span class="accessibly-hidden">speak a command</span>mic</button>
+                <button type="button" id="launchTextCommand" class="xfinity-control-btn launch-command-control-btn"><span class="accessibly-hidden">type a command</span>T</button>
+                <button type="button" id="exitXfinity" class="xfinity-control-btn">exit<span class="accessibly-hidden"> xfinity</span></button>
+            </div>
+        </div>
+        <div class="content" aria-hidden="true">
+            <div class="header" role="banner"></div>
+            <div class="main" role="main">
+                <div class="d-pad">
+                    <div class="up-down">
+                        <button type="button" id="dPadUp" class="d-pad-btn d-pad-up"><span class="accessibly-hidden">up</span></button>
+                        <button type="button" id="dPadDown" class="d-pad-btn d-pad-down"><span class="accessibly-hidden">down</span></button>
+                    </div>
+                    <div class="left-right">
+                        <button type="button" id="dPadLeft" class="d-pad-btn d-pad-left"><span class="accessibly-hidden">left</span></button>
+                        <button type="button" id="dPadRight" class="d-pad-btn d-pad-right"><span class="accessibly-hidden">right</span></button>
+                    </div>
+                    <button type="button" id="dPadOk" class="d-pad-btn d-pad-ok">OK</button>
+                </div>
+            </div>
+            <div class="footer" role="contentinfo"></div>
+        </div>
+        <div class="blocking-screen"></div>
+        <div class="overlay" aria-hidden="false">
+            <div class="overlay-header">
+                <button type="button" class="close-btn">Done</button>
+                <h1>Recent Queries</h1>
+            </div>
+            <ul class="recent-queries">
+                <li class="recent-query">
+                    <button class="recent-query-btn">Kids shows on HBO</button>
+                </li>
+                <li class="recent-query">
+                    <button class="recent-query-btn">Show me movies about baseball</button>
+                </li>
+                <li class="recent-query">
+                    <button class="recent-query-btn">Shows featuring animals in Africa</button>
+                </li>
+                <li class="recent-query">
+                    <button class="recent-query-btn">Watch sports</button>
+                </li>
+                <li class="recent-query">
+                    <button class="recent-query-btn">Do you have the Wizard of Oz?</button>
+                </li>
+                <li class="recent-query">
+                    <button class="recent-query-btn">Lorem ipsum dolor</button>
+                </li>
+                <li class="recent-query">
+                    <button class="recent-query-btn">Sit amet sed umini</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- std javascript libs -->
+    <script type="text/javascript" src="js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="js/mousetrap.min.js"></script>
+    <script type="text/javascript" src="js/mousetrap-global-bind.min.js"></script>
+
+    <!-- page or app level module(s) -->
+    <script type="text/javascript" src="js/namespacing.js"></script>
+    <script type="text/javascript" src="js/accessibility-helpers.js"></script>
+    <script type="text/javascript" src="js/dim-screen.js"></script>
+    <script type="text/javascript" src="js/overlay.js"></script>
+</body>
+</html>
