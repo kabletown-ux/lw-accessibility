@@ -2,13 +2,12 @@
  * @author Adina Halter
  * Dim Screen
  */
-(function($) {
+(function() {
 	'use strict';
 	/*
 	dim screen and block interaction with content under the dim screen
 	*/
-	NAMESP.dimScreen = function ($blockedContainers, $defaultFocus) {
-		var $blockingScreen = $('.blocking-screen');
+	NAMESP.dimScreen = function ($blockingScreen, $blockedContainers, $defaultFocus) {
 		/*
 		show screen dimmer
 		*/
@@ -21,8 +20,7 @@
 	/*
 	hide screen dimmer and restore content to an unblocked state
 	*/
-	NAMESP.unDimScreen = function ($blockedContainers) {
-		var $blockingScreen = $('.blocking-screen');
+	NAMESP.unDimScreen = function ($blockingScreen, $blockedContainers) {
 		/*
 		hide screen dimmer
 		*/
@@ -30,6 +28,6 @@
 		/*
 		re-allow tabbability within previously de-tabbed elements
 		*/
-		NAMESP.access.removeFocusBlock($blockedContainers);
+		NAMESP.access.removeBlockFocus($blockedContainers);
 	};
-}(jQuery));
+}());

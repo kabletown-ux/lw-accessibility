@@ -22,8 +22,20 @@
 	will not let you focus on anything within a blocked area
 	when an element is given focus within a blocked area the focus will move to a target element
 	*/
-	NAMESP.access.blockFocus = function($blockedContainers, $focusOnThisInstead) {
-		$blockedContainers.attr('aria-hidden', 'true');
+	NAMESP.access.blockFocus = function ($blockedContainers, $focusOnThisInstead) {
+//I think FF only problems
+//I'm having trouble putting more than one element in blockedContainers
+//so I'm not using it until I get to the bottom of it.
+//if i only block 'navigation', or just 'content' in FF it announces the focused close button
+//so this will work:
+//$blockedContainers = $('.navigation');
+//or
+//$blockedContainers = $('.content');
+//but this doesn't work:
+//$blockedContainers = $('.navigation, .content');
+//nor does it work if you next navigation into content
+//weirdly it works if the element following the (?trigger?) is an absolutely positioned item.
+        $blockedContainers.attr('aria-hidden', 'true');
 		$blockedContainers.on('focusin.blockingFocus', function () {
 			if ($blockedContainers.attr('aria-hidden') === 'true') {
 				$focusOnThisInstead.focus();
@@ -34,14 +46,14 @@
 	/*
 	removes focus blocking set with NAMESP.blockFocus method
 	*/
-	NAMESP.access.removeBlockFocus = function($blockedContainers) {
+	NAMESP.access.removeBlockFocus = function ($blockedContainers) {
 		$blockedContainers.off('focusin.blockingFocus');
 		$blockedContainers.removeAttr('aria-hidden');
 	};
 	/*
 	aria tagging while expanding content
 	*/
-	NAMESP.access.ariaExpand = function($expandingContainer) {
+	NAMESP.access.ariaExpand = function ($expandingContainer) {
 		$expandingContainer.attr({
 			"aria-hidden" : "false",
 			"aria-expanded" : "true"
@@ -51,7 +63,7 @@
 	/*
 	aria tagging while contracting content
 	*/
-	NAMESP.access.ariaContract = function($expandingContainer) {
+	NAMESP.access.ariaContract = function ($expandingContainer) {
 		$expandingContainer.attr({
 			"aria-hidden" : "true",
 			"aria-expanded" : "false"
@@ -59,23 +71,37 @@
 	};
 
     /*
-    tag trigger ($OPTIONALtrigger can be used to override default trigger capture)
+        tag trigger
+        $O_trigger can be used to override default trigger capture.
+        O_dataAttr can be used to override default 'data-trigger' attribute.
     */
-    NAMESP.access.tagTrigger = function($OPTIONALtrigger) {
-        var $trigger;
-        if ($OPTIONALtrigger) {
-            $trigger = $OPTIONALtrigger;
-        } else {
-            $trigger = $(document.activeElement);
+    NAMESP.access.tagTrigger = function ($O_trigger, O_dataAttr) {
+        if (!$O_trigger) {
+            $O_trigger = $(document.activeElement);
         }
-        $trigger.attr('data-trigger', 'true');
+        if (!O_dataAttr) {
+            O_dataAttr = "data-trigger";
+        }
+        $O_trigger.attr(O_dataAttr, 'true');
     };
 
     /*
-    focuses on trigger and removes trigger tag
+        focuses on flagged trigger and removes trigger tag
+        O_dataAttr can be used to override default 'data-trigger' attribute.
     */
-    NAMESP.access.focusTrigger = function() {
-        var $trigger = $('[data-trigger="true"]');
-        $trigger.focus().removeAttr('data-trigger');
+    NAMESP.access.returnFocusToTrigger = function (O_dataAttr) {
+        var $trigger;
+        if (!O_dataAttr) {
+            O_dataAttr = "data-trigger";
+        }
+        $trigger = $('[' + O_dataAttr + '="true"]');
+        if ($trigger.length === 1) {
+            $trigger.focus().removeAttr(O_dataAttr);
+            return;
+        }
+        /*
+            focus on body if no trigger could be found
+        */
+        $('body').focus();
     };
 }(jQuery));

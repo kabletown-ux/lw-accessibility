@@ -319,6 +319,9 @@ i.svg {
     height: 100%;
     color: white;
 }
+.overlay.reveal {
+    display: block;
+}
 .overlay-header {
     overflow: hidden;
     background-color: black;

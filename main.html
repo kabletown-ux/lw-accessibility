@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="mainControls" class="container">
-        <div class="navigation" role="navigation" aria-hidden="false">
+        <div class="navigation" role="navigation">
             <div class="utilities">
                 <button id="utilsLauncher" type="button" class="utility utils-launcher" aria-controls="utilityItems"><span class="accessibly-hidden">show utilities</span></button>
                 <ul id="utilityItems" class="util-items" aria-expanded="false" aria-hidden="true">
@@ -25,11 +25,11 @@
             <div class="xfinity-controls">
                 <button type="button" id="launchXfinity" class="xfinity-control-btn"><span class="accessibly-hidden">launch </span>xfinity</button>
                 <button type="button" id="launchSpeakCommand" class="xfinity-control-btn launch-command-control-btn"><span class="accessibly-hidden">speak a command</span>mic</button>
-                <button type="button" id="launchTextCommand" class="xfinity-control-btn launch-command-control-btn"><span class="accessibly-hidden">type a command</span>T</button>
+                <button type="button" id="launchTextCommand" class="xfinity-control-btn launch-command-control-btn" aria-controls="overlay"><span class="accessibly-hidden">type a command</span>T</button>
                 <button type="button" id="exitXfinity" class="xfinity-control-btn">exit<span class="accessibly-hidden"> xfinity</span></button>
             </div>
         </div>
-        <div class="content" aria-hidden="false">
+        <div class="content">
             <div class="header" role="banner"></div>
             <div class="main" role="main">
                 <div class="d-pad">
@@ -47,7 +47,13 @@
             <div class="footer" role="contentinfo"></div>
         </div>
         <div class="blocking-screen"></div>
-        <div class="overlay" aria-hidden="true"></div>
+        <div id="overlay" class="overlay" aria-expanded="false" aria-hidden="true">
+            <div class="overlay-header">
+                <button type="button" class="close-btn">Done</button>
+                <h1>Recent Queries</h1>
+            </div>
+            <p>Tap the <a href="#">Text</a> icon and type phrases like:</p>
+        </div>
     </div>
     <!-- std javascript libs -->
     <script type="text/javascript" src="js/jquery/jquery.js"></script>
@@ -59,5 +65,17 @@
     <script type="text/javascript" src="js/accessibility-helpers.js"></script>
     <script type="text/javascript" src="js/dim-screen.js"></script>
     <script type="text/javascript" src="js/overlay.js"></script>
+    <script>
+        $(document).ready(function () {
+            var $overlay = $('#overlay'),
+                $closeButton = $('.close-btn');
+            $('[aria-controls="overlay"]').on('click', function (evt) {
+                NAMESP.overlay.showOverlay($overlay, $closeButton);
+            });
+            $closeButton.on('click', function (evt) {
+                NAMESP.overlay.hideOverlay($overlay);
+            });
+        });
+    </script>
 </body>
 </html>
