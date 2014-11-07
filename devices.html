@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            padding: 1em;
+            font-family: sans-serif;
+        }
+        #device-list {
+            padding: 0em;
+            margin: 0em;
+        }
+        #device-list li {
+            margin-top: .25em;
+            list-style-type: none;
+            padding: .5em;
+            font-weight: bold;
+            border: 1px dotted red;
+        }
+    </style>
+</head>
+<body>
+    <div id="device-list-wrapper">
+        
+        <p>Click on one of these devices</p>
+        <ul id="device-list">
+            
+        </ul>
+        <p>Device selected <b><span id="selected-device">Nothing</span></b></p>
+        <p>Command: <input type="text" id="transcript" placeholder="Your command here" size="40" value=""> <input id="submit-command" type="submit" value="Go!">
+    </div>
+
+    <!-- std javascript libs -->
+    <script type="text/javascript" src="js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="js/mousetrap.min.js"></script>
+    <script type="text/javascript" src="js/mousetrap-global-bind.min.js"></script>
+    
+    <!-- app module -->
+    <script type="text/javascript" src="js/devices.js"></script>
+    
+</body>
+</html>
