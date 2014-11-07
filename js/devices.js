@@ -52,20 +52,21 @@ function getDevices() {
     });   
 }
 var knockKnockCalled = false;
-var knockKnockUrl = "http://a-96-119-1-210.sys.comcast.net:5050/knockknock?id=";
-var transcriptUrl = "http://a-96-119-1-210.sys.comcast.net:5050/command?id=";//&transcript=";
+var knockKnockUrlPartial = "http://a-96-119-1-210.sys.comcast.net:5050/knockknock";
+var transcriptUrlPartial = "http://a-96-119-1-210.sys.comcast.net:5050/command";//&transcript=";
 
 function sendCommand() {
     
     if ( debug ) console.log ( "sendCommand() called..." );
     
     var transcript = encodeURI( $( "#transcript" ).val() );
+    var transcriptUrlFull = transcriptUrlPartial + "?id=" + selectedDevice.id + "&transcript=" + transcript;
     
     if ( debug ) {
         console.log ( "sendCommand device [" + selectedDevice.id + "]" );
-        console.log ( "sendCommand calling [" + transcriptUrl + selectedDevice.id + "&transcript=" + transcript + "]" );
+        console.log ( "sendCommand calling [" + transcriptUrlFull + "]" );
     }
-    $.getJSON( transcriptUrl + selectedDevice.id + "&transcript=" + transcript, function( fetchedJson ) {
+    $.getJSON( transcriptUrlFull, function( fetchedJson ) {
       
         // calls are asynchronous.  Do nothing here!
     })
@@ -83,12 +84,13 @@ function sendCommand() {
 }
 function knockKnock() {
     
+    var knockKnockUrlFull = knockKnockUrlPartial + "?id=" + selectedDevice.id;
     if ( debug ) {
         console.log ( "knockKnock device [" + selectedDevice.id + "]" );
-        console.log ( "Calling [" + knockKnockUrl + selectedDevice.id + "]" );
+        console.log ( "Calling [" + knockKnockUrlFull + "]" );
     }
     
-    $.get( knockKnockUrl + selectedDevice.id, function( returnedF00 ) {
+    $.get( knockKnockUrlFull, function( returnedF00 ) {
       
         // calls are asynchronous.  Do nothing here!
     })
