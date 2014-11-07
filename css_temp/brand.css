@@ -336,9 +336,10 @@ i.svg {
     background-color: blue;
     color: white;
 }
-/* show overlay */
-#showOverlay .blocking-screen,
-#showOverlay .overlay {
+.overlay-content {
+    display: none;
+}
+.overlay-content.reveal {
     display: block;
 }
 /* text help */
