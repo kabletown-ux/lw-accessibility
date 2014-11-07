@@ -2,7 +2,7 @@
  * @author Adina Halter
  * Accessibility Helpers
  */
-(function($) {
+(function ($, NAMESP) {
 	'use strict';
 	NAMESP.keyboard = {
 		tab:    9,
@@ -104,4 +104,4 @@
         */
         $('body').focus();
     };
-}(jQuery));
+}(jQuery, NAMESP));

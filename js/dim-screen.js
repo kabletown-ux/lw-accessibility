@@ -2,7 +2,7 @@
  * @author Adina Halter
  * Dim Screen
  */
-(function() {
+(function ($, NAMESP) {
 	'use strict';
 	/*
 	dim screen and block interaction with content under the dim screen
@@ -30,4 +30,4 @@
 		*/
 		NAMESP.access.removeBlockFocus($blockedContainers);
 	};
-}());
+}(jQuery, NAMESP));
