@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="mainControls" class="container">
-        <div class="navigation" role="navigation" aria-hidden="false">
+        <div class="navigation" role="navigation">
             <div class="utilities">
                 <button id="utilsLauncher" type="button" class="utility utils-launcher" aria-controls="utilityItems"><span class="accessibly-hidden">show utilities</span></button>
                 <ul id="utilityItems" class="util-items" aria-expanded="false" aria-hidden="true">
@@ -25,11 +25,11 @@
             <div class="xfinity-controls">
                 <button type="button" id="launchXfinity" class="xfinity-control-btn"><span class="accessibly-hidden">launch </span>xfinity</button>
                 <button type="button" id="launchSpeakCommand" class="xfinity-control-btn launch-command-control-btn"><span class="accessibly-hidden">speak a command</span>mic</button>
-                <button type="button" id="launchTextCommand" class="xfinity-control-btn launch-command-control-btn"><span class="accessibly-hidden">type a command</span>T</button>
+                <a href="main.html#overlayTextQuery" class="btn xfinity-control-btn launch-command-control-btn" aria-controls="overlay"><span class="accessibly-hidden">type a command</span>T</a>
                 <button type="button" id="exitXfinity" class="xfinity-control-btn">exit<span class="accessibly-hidden"> xfinity</span></button>
             </div>
         </div>
-        <div class="content" aria-hidden="false">
+        <div class="content">
             <div class="header" role="banner"></div>
             <div class="main" role="main">
                 <div class="d-pad">
@@ -47,7 +47,77 @@
             <div class="footer" role="contentinfo"></div>
         </div>
         <div class="blocking-screen"></div>
-        <div class="overlay" aria-hidden="true"></div>
+        <div id="overlay" class="overlay" aria-expanded="false" aria-hidden="true">
+            <button type="button" class="close-btn">Done</button>
+            <div id="overlayTextQuery" class="overlay-content">
+                <h1 class="overlay-header">Text Query</h1>
+                <form action="">
+                    <label for="phrase">Type a command<a href="main.html#overlayTextHelp" class="btn help-btn" aria-controls="overlay"><span class="accessibly-hidden"> Get help with search</span></a></label>
+                    <textarea name="phrase" id="phrase" rows="3"></textarea>
+                    <a href="main.html#overlayRecentQueries" class="btn recent-btn" aria-controls="overlay">Recent queries</a>
+                </form>
+            </div>
+            <div id="overlayRecentQueries" class="overlay-content">
+                <h1>Recent Queries</h1>
+                <ul class="recent-queries">
+                    <li class="recent-query">
+                        <button class="recent-query-btn">Show me kids shows on HBO</button>
+                    </li>
+                    <li class="recent-query">
+                        <button class="recent-query-btn">Movies about baseball</button>
+                    </li>
+                    <li class="recent-query">
+                        <button class="recent-query-btn">Shows featuring animals in Africa</button>
+                    </li>
+                    <li class="recent-query">
+                        <button class="recent-query-btn">Watch sports</button>
+                    </li>
+                    <li class="recent-query">
+                        <button class="recent-query-btn">Do you have the Wizard of Oz?</button>
+                    </li>
+                    <li class="recent-query">
+                        <button class="recent-query-btn">Lorem ipsum dolor</button>
+                    </li>
+                    <li class="recent-query">
+                        <button class="recent-query-btn">Sit amet sed umini</button>
+                    </li>
+                </ul>
+            </div>
+            <div id="overlayTextHelp" class="overlay-content">
+                <h1>Text Help</h1>
+                <p>Tap the Text icon and type phrases like:</p>
+                <h2>Actions</h2>
+                <ul class="text-help-examples">
+                    <li class="text-help-example">
+                        Record
+                    </li>
+                    <li class="text-help-example">
+                        Watch ESPN 2
+                    </li>
+                    <li class="text-help-example">
+                        Watch channel 300
+                    </li>
+                    <li class="text-help-example">
+                        Watch Cars 2
+                    </li>
+                </ul>
+                <h2>Shortcuts</h2>
+                <ul class="text-help-examples">
+                    <li class="text-help-example">
+                        Guide
+                    </li>
+                    <li class="text-help-example">
+                        Find Modern Family
+                    </li>
+                    <li class="text-help-example">
+                        Show me all movies on HBO
+                    </li>
+                    <li class="text-help-example">
+                        Show me all 76ers games
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <!-- std javascript libs -->
     <script type="text/javascript" src="js/jquery/jquery.js"></script>
@@ -59,5 +129,6 @@
     <script type="text/javascript" src="js/accessibility-helpers.js"></script>
     <script type="text/javascript" src="js/dim-screen.js"></script>
     <script type="text/javascript" src="js/overlay.js"></script>
+    <script src="js/lw-accessibility.js"></script>
 </body>
 </html>

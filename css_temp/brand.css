@@ -319,8 +319,13 @@ i.svg {
     height: 100%;
     color: white;
 }
+.overlay.reveal {
+    display: block;
+}
 .overlay-header {
     overflow: hidden;
+    padding: 1ex;
+    margin: 0;
     background-color: black;
     text-align: center;
 }
