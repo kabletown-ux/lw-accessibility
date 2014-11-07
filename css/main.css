@@ -1,0 +1,28 @@
+#device-list-wrapper {
+ 
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    background-color: rgba( 255, 255, 255, .85 );
+}
+#device-list-wrapper h2 {
+    text-align: center;
+}
+#device-list {
+    padding: 0em;
+    margin: 0em;
+}
+#device-list li {
+    margin-top: .25em;
+    list-style-type: none;
+    padding: .5em;
+    font-weight: bold;
+    border: 2px dotted pink;
+}
+#device-list li.selected {
+    border: 2px solid red;
+}
