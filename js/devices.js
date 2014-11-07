@@ -19,12 +19,14 @@ function getDevices() {
         // iterate and add extra bits, and
         for ( var i = 0; i < keys.length; i++ ) {
 
-            devices[ keys[ i ] ].selected = false;
+            //devices[ keys[ i ] ].selected = false;
             devices[ keys[ i ] ].id = keys[ i ];
             
             //devices.push( devices[ keys[ i ] ] );
-            console.log( "keys [" + i + "] [" + keys[ i ] + "] devices[i].alias [" + devices[ keys[ i ] ].alias + "] selected [" + devices[ keys[ i ] ].selected + "] id [" + devices[ keys[ i ] ].id + "]" );
+            //selected [" + devices[ keys[ i ] ].selected + "]
+            console.log( "keys [" + i + "] [" + keys[ i ] + "] devices[i].alias [" + devices[ keys[ i ] ].alias + "] id [" + devices[ keys[ i ] ].id + "]" );
             
+            // add current device to list
             $( "#device-list" ).append( "<li id='device-" + i + "' data-device-id='" + keys[ i ] + "'>" + devices[ keys[ i ] ].alias + "</li>" );
         }
         /*
@@ -36,10 +38,19 @@ function getDevices() {
        
         // attach device selection 
         $( "#device-list li" ).click( function() {
+            
+            // clear selection
+            $( "#device-list li" ).removeClass( "selected" );
+            
+            // set current selected
+            $( this ).addClass( "selected" );
+            
+            // update display of current device
             var id = $( this ).data( "device-id" );
             $( "#selected-device" ).text( devices[ id ].alias + " (" + id + ")" );
             selectedDevice = devices[ id ];
-            //alert( "Selected device [" + selectedDevice.alias + "]" ); 
+            
+            // init conversation
             knockKnock();
         });
     })
