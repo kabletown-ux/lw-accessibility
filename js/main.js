@@ -139,7 +139,63 @@ function knockKnock() {
     });   
 }
 
-
+function promoteRecentQuery( queryId ) {
+    
+    if ( debug ) console.log ( "promoteRecentQuery queryId [" + queryId + "]" );
+    
+    // only promote queries that aren't in pole position ( index = 0 )
+    //if ( queryId > 0 ) {
+        
+        // copy element
+        var queryElement = $( "#query-id-" + queryId );
+        if ( debug ) console.log ( "promoteRecentQuery queryElement [" + queryElement.val() + "] found" );
+        
+        // detach, not remove, it
+        $( "#query-id-" + queryId ).detach();
+        
+        // insert into pole position
+        $( ".recent-query" ).eq( 0 ).before( queryElement );
+    //}
+}
+function insertRecentQuery( transcript ) {
+    
+    if ( debug ) console.log ( "insertRecentQuery transcript [" + transcript + "]" );
+    
+    // verify that this query doesn't already exist...
+    var matched = false;
+    var matchedId;
+    $( ".recent-query-btn" ).each(function( index ) {
+        
+        if ( !matched && transcript.trim().toLowerCase() === $( this ).text().trim().toLowerCase() ) {
+        
+            if ( debug ) console.log( "Match! index [" + index + "] [" + $( this ).text().trim() + "] transcript [" + transcript + "]" );
+            matched = true;
+            matchedId = $( this ).data( "query-id" );
+            // can't exit this loop?
+            //return;
+            
+        } else {
+            //if ( debug ) console.log ( "NO match?!?" );
+        }
+    });
+    
+    // ...if it does, then just promote it
+    if ( matched ) { 
+        
+        promoteRecentQuery( matchedId );
+        return;
+    }
+    
+    
+    // get count of recent queries
+    var count = $( ".recent-query" ).length;
+    
+    // update it to 
+    var newElement = "<li class='recent-query' id='query-id-" + count + "'><button class='recent-query-btn' data-query-id='" + count + "'>" + transcript + "</button></li>";
+    if ( debug ) console.log ( "newElement [" + newElement + "]" );
+    
+    $( ".recent-query" ).eq( 0 ).before( newElement );
+}
 $( document ).ready( function() {
 
     // load device information
@@ -150,15 +206,31 @@ $( document ).ready( function() {
     // submit from Adina's markup
     $( "#submit-command-2" ).click( function( event ) {
         
-        var transcript = encodeURI( $( "#phrase" ).val() );
-        sendCommand2( selectedDevice.id, transcript );
+        var transcript = encodeURI( $( "#phrase" ).val().trim() );
+        //sendCommand2( selectedDevice.id, transcript );
+        
+        // add to recent query list
+        insertRecentQuery( $( "#phrase" ).val().trim() );
         
         event.preventDefault();
     })
+    // bind d pad buttons
     $( ".d-pad-btn" ).click( function( event ) {
     
         var transcript = $( this ).data( "command" );
         sendCommand2( selectedDevice.id, transcript );
+        
+        event.preventDefault();
+    });
+    
+    // bind recent queries
+    $( ".recent-query-btn" ).click( function( event ) {
+    
+        var transcript = $( this ).text().trim();
+        //sendCommand2( selectedDevice.id, transcript );
+        
+        var queryId = $( this ).data( "query-id" );
+        promoteRecentQuery( queryId );
         
         event.preventDefault();
     });
