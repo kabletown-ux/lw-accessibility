@@ -27,7 +27,7 @@
             <div class="xfinity-controls">
                 <button type="button" id="launchXfinity" class="xfinity-control-btn"><span class="accessibly-hidden">launch </span>xfinity</button>
                 <button type="button" id="launchSpeakCommand" class="xfinity-control-btn launch-command-control-btn"><span class="accessibly-hidden">speak a command</span>mic</button>
-                <a href="main.html#overlayTextQuery" class="btn xfinity-control-btn launch-command-control-btn" aria-controls="overlay"><span class="accessibly-hidden">type a command</span>T</a>
+                <a href="#overlayTextQuery" class="btn xfinity-control-btn launch-command-control-btn" aria-controls="overlay"><span class="accessibly-hidden">type a command</span>T</a>
                 <button type="button" id="exitXfinity" class="xfinity-control-btn">exit<span class="accessibly-hidden"> xfinity</span></button>
             </div>
         </div>
@@ -51,16 +51,18 @@
         <div class="blocking-screen"></div>
         <div id="overlay" class="overlay" aria-expanded="false" aria-hidden="true">
             <button type="button" class="close-btn">Done</button>
+            
             <div id="overlayTextQuery" class="overlay-content">
                 <h1 class="overlay-header">Text Query</h1>
                 <form action="">
-                    <label for="phrase">Type a command<a href="main.html#overlayTextHelp" class="btn help-btn" aria-controls="overlay"><span class="accessibly-hidden"> Get help with search</span></a></label>
+                    <label for="phrase">Type a command<a href="#overlayTextHelp" class="btn help-btn" aria-controls="overlay"><span class="accessibly-hidden"> Get help with search</span></a></label>
                     <textarea name="phrase" id="phrase" rows="3"></textarea>
-                    <a href="main.html#overlayRecentQueries" class="btn recent-btn" aria-controls="overlay">Recent queries</a>
+                    <input id="submit-command-2" type="submit" value="Go!">
+                    <a href="#overlayRecentQueries" class="btn recent-btn" aria-controls="overlay">Recent queries</a>
                 </form>
             </div>
             <div id="overlayRecentQueries" class="overlay-content">
-                <h1 class="overlay-header">Recent Queries</h1>
+                <h1>Recent Queries</h1>
                 <ul class="recent-queries">
                     <li class="recent-query">
                         <button class="recent-query-btn">Show me kids shows on HBO</button>
@@ -86,7 +88,7 @@
                 </ul>
             </div>
             <div id="overlayTextHelp" class="overlay-content">
-                <h1 class="overlay-header">Text Help</h1>
+                <h1>Text Help</h1>
                 <p>Tap the Text icon and type phrases like:</p>
                 <h2>Actions</h2>
                 <ul class="text-help-examples">
@@ -119,6 +121,16 @@
                     </li>
                 </ul>
             </div>
+        </div>
+        
+        <div id="device-list-wrapper" class="overlay-content">
+        
+            <h2>Select a device</h2>
+            <ul id="device-list"></ul>
+            <!--
+            <p>Device selected <b><span id="selected-device">Nothing</span></b></p>
+            <p>Command: <input type="text" id="transcript" placeholder="Your command here" size="40" value=""> <input id="submit-command" type="submit" value="Go!">
+            -->
         </div>
     </div>
     <!-- std javascript libs -->
