@@ -36,14 +36,14 @@
             <div class="main" role="main">
                 <div class="d-pad">
                     <div class="up-down">
-                        <button type="button" id="dPadUp" class="d-pad-btn d-pad-up"><span class="accessibly-hidden">up</span></button>
-                        <button type="button" id="dPadDown" class="d-pad-btn d-pad-down"><span class="accessibly-hidden">down</span></button>
+                        <button type="button" id="dPadUp" class="d-pad-btn d-pad-up" data-command="up"><span class="accessibly-hidden">up</span></button>
+                        <button type="button" id="dPadDown" class="d-pad-btn d-pad-down" data-command="down"><span class="accessibly-hidden">down</span></button>
                     </div>
                     <div class="left-right">
-                        <button type="button" id="dPadLeft" class="d-pad-btn d-pad-left"><span class="accessibly-hidden">left</span></button>
-                        <button type="button" id="dPadRight" class="d-pad-btn d-pad-right"><span class="accessibly-hidden">right</span></button>
+                        <button type="button" id="dPadLeft" class="d-pad-btn d-pad-left" data-command="left"><span class="accessibly-hidden">left</span></button>
+                        <button type="button" id="dPadRight" class="d-pad-btn d-pad-right" data-command="right"><span class="accessibly-hidden">right</span></button>
                     </div>
-                    <button type="button" id="dPadOk" class="d-pad-btn d-pad-ok">OK</button>
+                    <button type="button" id="dPadOk" class="d-pad-btn d-pad-ok" data-command="enter">OK</button>
                 </div>
             </div>
             <div class="footer" role="contentinfo"></div>
@@ -127,10 +127,6 @@
         
             <h2>Select a device</h2>
             <ul id="device-list"></ul>
-            <!--
-            <p>Device selected <b><span id="selected-device">Nothing</span></b></p>
-            <p>Command: <input type="text" id="transcript" placeholder="Your command here" size="40" value=""> <input id="submit-command" type="submit" value="Go!">
-            -->
         </div>
     </div>
     <!-- std javascript libs -->

@@ -146,10 +146,7 @@ $( document ).ready( function() {
     getDevices();
     
     // bind events
-    // original poc
-    /*$( "#submit-command" ).click( function() {
-        sendCommand();
-    });*/
+      
     // submit from Adina's markup
     $( "#submit-command-2" ).click( function( event ) {
         
@@ -158,4 +155,11 @@ $( document ).ready( function() {
         
         event.preventDefault();
     })
+    $( ".d-pad-btn" ).click( function( event ) {
+    
+        var transcript = $( this ).data( "command" );
+        sendCommand2( selectedDevice.id, transcript );
+        
+        event.preventDefault();
+    });
 });
