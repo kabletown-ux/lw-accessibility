@@ -227,7 +227,7 @@ $( document ).ready( function() {
     $( ".recent-query-btn" ).click( function( event ) {
     
         var transcript = $( this ).text().trim();
-        //sendCommand2( selectedDevice.id, transcript );
+        sendCommand2( selectedDevice.id, transcript );
         
         var queryId = $( this ).data( "query-id" );
         promoteRecentQuery( queryId );
