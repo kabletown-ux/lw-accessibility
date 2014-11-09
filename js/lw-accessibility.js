@@ -11,7 +11,7 @@ $(document).ready(function () {
         //close current overlay if necesssary
         if ($overlay.hasClass('reveal')) {
             //hide the overlay
-            NAMESP.overlay.hideOverlay($overlay);
+            NAMESP.overlay.hideOverlay($overlay, "reverseBottomToTop");
             //hide all nestd overlay content
             $overlay.find('.overlay-content').removeClass('reveal');
         }
@@ -20,9 +20,9 @@ $(document).ready(function () {
         //show correct content in the DOM
             $overlay.find('#' + idOfOverlayContent).addClass('reveal');
         //show overlay
-        NAMESP.overlay.showOverlay($overlay, $closeButton);
+        NAMESP.overlay.showOverlay($overlay, $closeButton, "bottomToTop");
     });
     $closeButton.on('click', function (evt) {
-        NAMESP.overlay.hideOverlay($overlay);
+        NAMESP.overlay.hideOverlay($overlay,"reverseBottomToTop");
     });
 });

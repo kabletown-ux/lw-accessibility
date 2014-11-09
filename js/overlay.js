@@ -11,8 +11,10 @@
     /*
         reveal overlay accessibly while blocking extra-overlay elems
         $O_defaultFocus can be used to override focusing on the first focusable element in the overlay
+        O_animate can be used to call an animate function rather than having the overlay just appear
+        ...assign O_animate the name   of the function from animation.js such as "bottomToTop"
     */
-    NAMESP.overlay.showOverlay = function ($overlay, $O_defaultFocus) {
+    NAMESP.overlay.showOverlay = function ($overlay, $O_defaultFocus, O_animate) {
         var $blockingScreen, // a reference to the dimmed background element
             $blockedContainers, // a reference to the containers that need to be blocked during overlay view.
             focusableSelector = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]';
@@ -35,9 +37,16 @@
             $O_defaultFocus = $overlay.find(focusableSelector).not('[type="hidden"]').eq(1);
         }
         /*
-            show overlay and set aria expand = true
+            show overlay
         */
-        $overlay.addClass('reveal');
+        if (!O_animate) {
+            $overlay.addClass('reveal');
+        } else {
+            NAMESP.animate[O_animate]($overlay, 0.35, 'reveal');
+        }
+        /*
+            set aria tags
+        */
         NAMESP.access.ariaExpand($overlay);
         /*
             show blocking screen and block all elements behind it
@@ -51,7 +60,7 @@
     /*
     hide overlay
     */
-    NAMESP.overlay.hideOverlay = function ($overlay) {
+    NAMESP.overlay.hideOverlay = function ($overlay, O_animate) {
         var $blockingScreen, // a reference to the dimmed background element
             $blockedContainers; // a reference to the containers that need to be blocked during overlay view.
         /*
@@ -67,9 +76,16 @@
         */
         NAMESP.unDimScreen($blockingScreen, $blockedContainers);
         /*
-            hide overlay; aria expand to false
+            hide overlay
         */
-        $overlay.removeClass('reveal');
+        if (!O_animate) {
+            $overlay.removeClass('reveal');
+        } else {
+            NAMESP.animate[O_animate]($overlay, 0.35, 'reveal');
+        }
+        /*
+            reset aria tags
+        */
         NAMESP.access.ariaContract($overlay);
         /*
             focus on trigger that had opened the overlay
