@@ -12,26 +12,34 @@
 </head>
 <body>
     <div id="mainControls" class="container">
-        <div class="navigation" role="navigation">
-            <div class="utilities">
-                <button id="utilsLauncher" type="button" class="utility utils-launcher" aria-controls="utilityItems"><span class="accessibly-hidden">show utilities</span></button>
-                <ul id="utilityItems" class="util-items" aria-expanded="false" aria-hidden="true">
-                    <li class="util-item"><a href="#" class="btn utility search" style="display: none"><span class="accessibly-hidden">search</span></a></li>
-                    <li class="util-item"><a href="#" class="btn utility settings" style="display: none"><span class="accessibly-hidden">settings</span></a></li>
-                    <li class="util-item"><a href="#" class="btn utility help" style="display: none"><span class="accessibly-hidden">help</span></a></li>
-                </ul>
-            </div>
-            <div class="shortcuts">
-                <a href="#" class="btn utility shortcuts"><span class="accessibly-hidden">shortcuts</span></a>
-            </div>
-            <div class="xfinity-controls">
-                <button type="button" id="launchXfinity" class="xfinity-control-btn"><span class="accessibly-hidden">launch </span>xfinity</button>
-                <button type="button" id="launchSpeakCommand" class="xfinity-control-btn launch-command-control-btn"><span class="accessibly-hidden">speak a command</span>mic</button>
-                <a href="#overlayTextQuery" class="btn xfinity-control-btn launch-command-control-btn" aria-controls="overlay"><span class="accessibly-hidden">type a command</span>T</a>
-                <button type="button" id="exitXfinity" class="xfinity-control-btn">exit<span class="accessibly-hidden"> xfinity</span></button>
-            </div>
-        </div>
         <div class="content">
+            <div class="navigation" role="navigation">
+                <div class="utilities">
+                    <button id="utilsLauncher" type="button" class="utility utils-launcher" aria-controls="utilityItems"><span class="accessibly-hidden">show utilities</span></button>
+                    <ul id="utilityItems" class="util-items" aria-expanded="false" aria-hidden="true">
+                        <li class="util-item"><a href="#" class="btn utility search" style="display: none"><span class="accessibly-hidden">search</span></a></li>
+                        <li class="util-item"><a href="#" class="btn utility settings" style="display: none"><span class="accessibly-hidden">settings</span></a></li>
+                        <li class="util-item"><a href="#" class="btn utility help" style="display: none"><span class="accessibly-hidden">help</span></a></li>
+                    </ul>
+                </div>
+                <div class="shortcuts">
+                    <a href="#" class="btn utility shortcuts"><span class="accessibly-hidden">shortcuts</span></a>
+                </div>
+                <div class="xfinity-controls">
+                    <button type="button" id="launchXfinity" class="xfinity-control-btn"><span class="accessibly-hidden">launch </span>xfinity</button>
+                    <button type="button" id="launchSpeakCommand" class="xfinity-control-btn launch-command-control-btn">
+                        <i class="svg icon-mic">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 61" tabindex="-1">
+                                <path fill="#222222" d="M32,32.2c0,6-4.8,10.8-10.8,10.8h-0.3c-6,0-10.8-4.8-10.8-10.8V10.8C10,4.8,14.8,0,20.8,0h0.3 C27.2,0,32,4.8,32,10.8V32.2z"/>
+                                <path fill="#222222" d="M41,30v-4h-4v4c0,8.8-7.1,16-15.9,16h-1C11.3,46,4,38.8,4,30v-4H0v4c0,10.7,8.5,19.4,19,19.9V57H7v4h28v-4 H23v-7.1C33.2,49,41,40.4,41,30z"/>
+                            </svg>
+                        </i>
+                        <span class="accessibly-hidden">speak a command</span>
+                    </button>
+                    <a href="main.html#overlayTextQuery" class="btn xfinity-control-btn launch-command-control-btn text-query-btn" aria-controls="overlay"><span class="accessibly-hidden">type a command</span></a>
+                    <button type="button" id="exitXfinity" class="xfinity-control-btn">exit<span class="accessibly-hidden"> xfinity</span></button>
+                </div>
+            </div>
             <div class="header" role="banner"></div>
             <div class="main" role="main">
                 <div class="d-pad">
@@ -51,18 +59,17 @@
         <div class="blocking-screen"></div>
         <div id="overlay" class="overlay" aria-expanded="false" aria-hidden="true">
             <button type="button" class="close-btn">Done</button>
-            
             <div id="overlayTextQuery" class="overlay-content">
                 <h1 class="overlay-header">Text Query</h1>
                 <form action="">
-                    <label for="phrase">Type a command<a href="#overlayTextHelp" class="btn help-btn" aria-controls="overlay"><span class="accessibly-hidden"> Get help with search</span></a></label>
+                    <label for="phrase">Type a command<a href="main.html#overlayTextHelp" class="btn help-btn" aria-controls="overlay"><span class="accessibly-hidden"> Get help with search</span></a></label>
                     <textarea name="phrase" id="phrase" rows="3"></textarea>
-                    <input id="submit-command-2" type="submit" value="Go!">
-                    <a href="#overlayRecentQueries" class="btn recent-btn" aria-controls="overlay">Recent queries</a>
+                    <button type="submit" id="submit-command-2">Go!</button>
+                    <a href="main.html#overlayRecentQueries" class="btn recent-btn" aria-controls="overlay">Recent queries</a>
                 </form>
             </div>
             <div id="overlayRecentQueries" class="overlay-content">
-                <h1>Recent Queries</h1>
+                <h1 class="overlay-header">Recent Queries</h1>
                 <ul class="recent-queries">
                     <li class="recent-query" id="query-id-0">
                         <button class="recent-query-btn" data-query-id="0">Show me kids shows on HBO</button>
@@ -82,7 +89,7 @@
                 </ul>
             </div>
             <div id="overlayTextHelp" class="overlay-content">
-                <h1>Text Help</h1>
+                <h1 class="overlay-header">Text Help</h1>
                 <p>Tap the Text icon and type phrases like:</p>
                 <h2>Actions</h2>
                 <ul class="text-help-examples">
@@ -133,8 +140,8 @@
     <script type="text/javascript" src="js/accessibility-helpers.js"></script>
     <script type="text/javascript" src="js/dim-screen.js"></script>
     <script type="text/javascript" src="js/overlay.js"></script>
-    <script type="text/javascript" src="js/lw-accessibility.js"></script>
+    <script type="text/javascript" src="js/animation.js"></script>
+    <script src="js/lw-accessibility.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
-    
 </body>
 </html>
