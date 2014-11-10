@@ -195,7 +195,7 @@ function insertRecentQuery( transcript ) {
     var count = $( ".recent-query" ).length;
     
     // update it to 
-    var newElement = "<li class='recent-query' id='query-id-" + count + "'><button class='recent-query-btn' data-query-id='" + count + "'>" + transcript + "</button></li>";
+    var newElement = "<li id='query-id-" + count + "'><button class='recent-query-btn' data-query-id='" + count + "'>" + transcript + "</button></li>";
     if ( debug ) console.log ( "newElement [" + newElement + "]" );
     
     $( ".recent-query" ).eq( 0 ).before( newElement );
