@@ -184,9 +184,13 @@ function insertRecentQuery( transcript ) {
         
         promoteRecentQuery( matchedId );
         return;
+        
+    } else {
+        
+        sendCommand2( selectedDevice.id, transcript );
     }
     
-    
+    // If we got this far then the query is new
     // get count of recent queries
     var count = $( ".recent-query" ).length;
     
@@ -195,6 +199,19 @@ function insertRecentQuery( transcript ) {
     if ( debug ) console.log ( "newElement [" + newElement + "]" );
     
     $( ".recent-query" ).eq( 0 ).before( newElement );
+    
+    // bind event handler to new list item
+    $( "#query-id-" + count ).click( function( event ) {
+    
+        event.preventDefault();
+        
+        var transcript = $( this ).text().trim();
+        if ( debug ) console.log ( "newElement transcript [" + transcript + "]" );
+        sendCommand2( selectedDevice.id, transcript );
+        
+        //var queryId = $( this ).data( "query-id" );
+        promoteRecentQuery( count );        
+    });
 }
 $( document ).ready( function() {
 
@@ -226,12 +243,12 @@ $( document ).ready( function() {
     // bind recent queries
     $( ".recent-query-btn" ).click( function( event ) {
     
+        event.preventDefault();
+        
         var transcript = $( this ).text().trim();
         sendCommand2( selectedDevice.id, transcript );
         
         var queryId = $( this ).data( "query-id" );
-        promoteRecentQuery( queryId );
-        
-        event.preventDefault();
+        promoteRecentQuery( queryId );        
     });
 });
