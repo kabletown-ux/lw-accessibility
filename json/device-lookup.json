@@ -1,12 +1,27 @@
 {
-    "1528649003435012175": {
-        "guid": "023721351627022008Comcast.USR3JR",
-        "deviceId": "OUAGuWgFrpeRhXPem1IgTAL9TFYnRZoq",
-        "alias": "Gene's Office"
-    },
-    "405394881017065822": {
-        "guid": "397043431803062011Comcast.USR4JR",
-        "deviceId": "wOUvuHZz1a1ahNmST4I0-1kUxjucq2XQ",
-        "alias": "Rick's Office"
-    }
+	"1528649003435012175": {
+		"guid":"023721351627022008Comcast.USR3JR",
+		"deviceId":"OUAGuWgFrpeRhXPem1IgTAL9TFYnRZoq",
+		"alias":"Gene's Office"
+	},
+	"405394881017065822": {
+		"guid":"397043431803062011Comcast.USR4JR",
+		"deviceId":"wOUvuHZz1a1ahNmST4I0-1kUxjucq2XQ",
+		"alias":"Rick's Office"
+	},
+	"811668515854791776": {
+		"guid":"190006090813112013Comcast.USRIMS",
+		"deviceId":"hd7vM8-tXgyssFgJMCSlE5B8A9TtQBM8",
+		"alias":"Adina's Office"
+	},
+	"4230811504716787940": {
+		"guid":"870359210619022014Comcast.USRIMS",
+		"deviceId":"rvkFjtNf7GjJF91VO2mS2u03Y7cl91-p",
+		"alias":"Gwen's Office"
+	},
+	"785969984053592300": {
+		"guid":"397043431803062011Comcast.USR4JR",
+		"deviceId":"1E5rWwCKdi-q0EpQEjW4i45CQPsOO2nN",
+		"alias":"Ux Crib"
+	}
 }
