@@ -242,10 +242,12 @@ vrexProxy.get('/command',function (req, res, next) {
 						
 			var queryParams = "?timezone=US/Eastern&filters=NLP,X1&cid="+cid;		
 			var success = 500;
+			var tscript = req.params.transcript;
+			tscript = tscript.replace('?','');
 			request({
 			   uri: vrexURL+shPath+queryParams, 
 			   method: "POST",
-			   body: '{"transcription":"'+req.params.transcript+'","reza":"true"}',
+			   body: '{"transcription":"'+tscript+'","reza":"true"}',
 			   timeout: VREX_TIMEOUT
 			}, function(error, result, data){ 
 				if(error){
