@@ -243,7 +243,7 @@ vrexProxy.get('/command',function (req, res, next) {
 			var queryParams = "?timezone=US/Eastern&filters=NLP,X1&cid="+cid;		
 			var success = 500;
 			var tscript = req.params.transcript;
-			tscript = tscript.replace('?','');
+			tscript = tscript.split('?').join('');
 			request({
 			   uri: vrexURL+shPath+queryParams, 
 			   method: "POST",
