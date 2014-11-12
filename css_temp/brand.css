@@ -15,6 +15,7 @@
 @viewport { width: device-width; }
 html {
     //overflow-y: scroll;
+    overflow: hidden;
     min-height: 100%;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 62.5%;
@@ -217,7 +218,8 @@ i.svg {
     height: 60px;
     margin-left: -.3em;
     color: white;
-    }
+    font-size: 16px;
+}
 .xfinity-control-btn:first-child {
     margin-left: 0;
 }

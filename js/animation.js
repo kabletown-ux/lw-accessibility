@@ -30,12 +30,13 @@
         /* animate element */
         $elemToAnimate.animate({
             "margin-top": heightOfBrowserWindow
-        }, milliseconds );
-        /* hide element */
-        if (O_classNameToHide) {
-            $elemToAnimate.addClass(O_classNameToHide);
-        } else {
-            $elemToAnimate.hide();
-        }
+        }, milliseconds, function () {
+            /* hide element */
+            if (O_classNameToHide) {
+                $elemToAnimate.removeClass(O_classNameToHide);
+            } else {
+                $elemToAnimate.hide();
+            }
+        } );
     }
 }(jQuery, NAMESP));

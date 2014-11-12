@@ -7,7 +7,6 @@ $(document).ready(function () {
         $closeButton = $('.close-btn');
     $('[aria-controls="overlay"]').on('click', function (evt) {
         var idOfOverlayContent = $(this).attr('href').split("#").pop();
-        console.log(idOfOverlayContent);
         //close current overlay if necesssary
         if ($overlay.hasClass('reveal')) {
             //hide the overlay
@@ -15,14 +14,19 @@ $(document).ready(function () {
             //hide all nestd overlay content
             $overlay.find('.overlay-content').removeClass('reveal');
         }
-        //may need to put a delay here for animation purposes
-
         //show correct content in the DOM
-            $overlay.find('#' + idOfOverlayContent).addClass('reveal');
+        $overlay.find('#' + idOfOverlayContent).addClass('reveal');
         //show overlay
         NAMESP.overlay.showOverlay($overlay, $closeButton, "bottomToTop");
     });
     $closeButton.on('click', function (evt) {
-        NAMESP.overlay.hideOverlay($overlay,"reverseBottomToTop");
+        console.log('close');
+        //hide the overlay
+        NAMESP.overlay.hideOverlay($overlay, "reverseBottomToTop");
+        //hide all nestd overlay content
+        $overlay.find('.overlay-content').removeClass('reveal');
     });
+    //begin with device chooser open
+    $('#deviceList').addClass('reveal');
+    NAMESP.overlay.showOverlay($overlay, $closeButton, "bottomToTop");
 });
