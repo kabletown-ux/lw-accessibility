@@ -13,7 +13,9 @@ $(document).ready(function () {
             NAMESP.overlay.hideOverlay($overlay, "reverseBottomToTop");
             //hide all nestd overlay content
             $overlay.find('.overlay-content').removeClass('reveal');
+            //wait .5 seconds
         }
+        //debugger;
         //show correct content in the DOM
         $overlay.find('#' + idOfOverlayContent).addClass('reveal');
         //show overlay

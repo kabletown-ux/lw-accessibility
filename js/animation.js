@@ -31,12 +31,13 @@
         $elemToAnimate.animate({
             "margin-top": heightOfBrowserWindow
         }, milliseconds, function () {
-            /* hide element */
-            if (O_classNameToHide) {
-                $elemToAnimate.removeClass(O_classNameToHide);
-            } else {
-                $elemToAnimate.hide();
-            }
+            //AJH: decide whether the below commands need to go in here instead
         } );
+        if (O_classNameToHide) {
+            //AJH:  this needs to change to "removeClass" but it's buggy so leaving for now.
+            $elemToAnimate.addClass(O_classNameToHide);
+        } else {
+            $elemToAnimate.hide();
+        }
     }
 }(jQuery, NAMESP));
