@@ -106,17 +106,15 @@ button, .btn {
     box-sizing: border-box;
     height: 29px;
     border: none;
-    padding: 0 0.6em 0 .8em;
+    padding: 0 .9em 0 1.1em;
     background-color: gray;
-    font-size: 12px;
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 11px;
+    font-size: 1.1rem;
     color: #fff;
-    line-height: 32px;
+    line-height: 29px;
     text-align: center;
     text-decoration: none;
     white-space: nowrap;
-    letter-spacing: 0.07em;
     }
 .overlay button,
 .overlay .btn {
@@ -380,9 +378,9 @@ i.svg {
     content: none;
 }
 /* text queries --------------------------- */
-.help-btn {
+.btn.help-btn {
     position: relative;
-    color: blue;
+    color: #1588c4; /* blue */
     width: 30px;
     height: 30px;
     float: right;
@@ -407,19 +405,22 @@ i.svg {
 }
 /* recent queries -------------------------- */
 .recent-queries {
-    margin: 2ex 2em;
+    margin: 3ex 1em;
 }
 .recent-query {
     margin-bottom: 0;
 }
-.recent-query-btn {
+button.recent-query-btn {
     width: 100%;
     height: auto;
     border-bottom: 1px solid white;
-    padding: 2ex 2em;
-    text-align: left;
-    color: white;
+    border-radius: 0;
+    padding: 2ex .5em;
     background-color: transparent;
+    color: white;
+    font-size: 18px;
+    font-size: 1.8rem;
+    text-align: left;
 }
 .recent-query:first-child .recent-query-btn {
     border-top: 1px solid white;
@@ -458,9 +459,9 @@ i.svg {
 }
 .overlay .close-btn {
     position: absolute;
-    right: 6px;
+    right: 7px;
     top: 7px;
-    background-color: blue;
+    background-color: #1588c4; /* blue */
 }
 .overlay-content {
     display: none;
