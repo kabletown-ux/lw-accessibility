@@ -5,9 +5,7 @@
 **********************************************/
 
 // packages needed
-/* var ws = require("nodejs-websocket");
-var wit = require('./wit');
-var oauth = require('oauth'); */
+var ws = require("nodejs-websocket");
 var Q = require('q');
 var restify = require("restify");
 var request = require('request'); 
@@ -315,6 +313,46 @@ vrexProxy.get('/alive',function (req, res, next) {
 	});  
 });
 
+// ws proxy for vrex calls
+function callVrexProxy(str) {
+		var deferred = Q.defer();
+		request({
+		   //uri: "http://a-96-119-1-210.sys.comcast.net:5050/getDevices",
+		   uri: str,
+		   method: "GET"
+		}, function(error, result, data){ 
+			console.log(data);
+			if(error){
+				return deferred.reject(error);
+			}else{
+				return deferred.resolve(JSON.stringify(data));
+			}		
+		});
+		return deferred.promise;
+}
+
+// websocket handlers
+var wsServer = ws.createServer(function (connection) {   
+	console.log( "ws connection opened"+" at "+(new Date(new Date()-254000)));
+	connection.on( "text", function (str) {
+		// handle client webpage registering its device id
+		console.log( "websocket call [" + str + "] at"+(new Date(new Date()-254000)));
+		callVrexProxy(str).then(function (data) {
+			/* var msg = 'giveData('+data+')'; */
+			/* console.log(data); */
+			connection.sendText(data);
+		});
+	});
+	connection.on( "close", function () {
+	});
+	connection.on('error', function (err) {
+		console.error(err.stack);
+		console.log("Node NOT Exiting... "+(new Date(new Date()-254000)));
+	});
+});
+
+// start the websocket
+wsServer.listen(5051);
 
 // start the app server
 vrexProxy.listen(5050, function() {
