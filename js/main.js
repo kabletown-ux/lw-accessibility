@@ -206,7 +206,7 @@ $( document ).ready( function() {
         event.preventDefault();
     })
     // bind d pad buttons
-    $( ".d-pad-btn" ).click( function( event ) {
+    $( ".d-pad-btn, #launchXfinity, #exitXfinity" ).click( function( event ) {
 
         var transcript = $( this ).data( "command" );
         sendCommand( selectedDevice.id, transcript );
