@@ -7,6 +7,9 @@ var devicesUrl = baseUrl + "/getDevices";
 var knockKnockUrlPartial = baseUrl + "/knockknock"; //?id=9999999
 var transcriptUrlPartial = baseUrl + "/command";//?id=9999999&transcript=w00t+w00t+w00t";
 
+/*
+ * ALL NETWORK CALLS MOVED INTO vrex-websocket.js, which proxies them for us.
+ *  
 function getDevices() {
 
     if ( debug ) console.log ( "getDevices(...) calling [" + devicesUrl + "]..." );
@@ -64,59 +67,8 @@ function getDevices() {
         if ( debug ) console.log( "complete" );
     });
 }
+*/
 /*
-function sendCommand() {
-
-    if ( debug ) console.log ( "sendCommand() called..." );
-
-    var transcript = encodeURI( $( "#transcript" ).val() );
-    var transcriptUrlFull = transcriptUrlPartial + "?id=" + selectedDevice.id + "&transcript=" + transcript;
-
-    if ( debug ) {
-        console.log ( "sendCommand device [" + selectedDevice.id + "]" );
-        console.log ( "sendCommand calling [" + transcriptUrlFull + "]" );
-    }
-    $.getJSON( transcriptUrlFull, function( fetchedJson ) {
-
-        // calls are asynchronous.  Do nothing here!
-    })
-    .done( function( fetchedJson ) {
-
-        if ( debug ) console.log( "sendCommand() done [" + JSON.stringify( fetchedJson ) + "]" );
-    })
-    .fail( function( jqxhr, textStatus, error ) {
-        var err = textStatus + ', ' + error;
-        if ( debug ) console.log( "sendCommand Request Failed: " + err );
-    })
-    .always( function() {
-        if ( debug ) console.log( "sendCommand complete" );
-    });
-}*/
-
-function sendCommand2( id, transcript ) {
-
-    if ( debug ) console.log ( "sendCommand2() called..." );
-
-    var transcriptUrlFull = transcriptUrlPartial + "?id=" + id + "&transcript=" + transcript;
-
-    if ( debug ) console.log ( "sendCommand2 calling [" + transcriptUrlFull + "]" );
-
-    $.getJSON( transcriptUrlFull, function( fetchedJson ) {
-
-        // calls are asynchronous.  Do nothing here!
-    })
-    .done( function( fetchedJson ) {
-
-        if ( debug ) console.log( "sendCommand2() done [" + JSON.stringify( fetchedJson ) + "]" );
-    })
-    .fail( function( jqxhr, textStatus, error ) {
-        var err = textStatus + ', ' + error;
-        if ( debug ) console.log( "sendCommand2 Request Failed: " + err );
-    })
-    .always( function() {
-        if ( debug ) console.log( "sendCommand2 complete" );
-    });
-}
 function knockKnock() {
 
     var knockKnockUrlFull = knockKnockUrlPartial + "?id=" + selectedDevice.id;
@@ -141,24 +93,46 @@ function knockKnock() {
         if ( debug ) console.log( "knockKnock complete" );
     });
 }
+*/
+/*
+function sendCommand( id, transcript ) {
 
+    if ( debug ) console.log ( "sendCommand() called..." );
+
+    var transcriptUrlFull = transcriptUrlPartial + "?id=" + id + "&transcript=" + transcript;
+
+    if ( debug ) console.log ( "sendCommand calling [" + transcriptUrlFull + "]" );
+
+    $.getJSON( transcriptUrlFull, function( fetchedJson ) {
+
+        // calls are asynchronous.  Do nothing here!
+    })
+    .done( function( fetchedJson ) {
+
+        if ( debug ) console.log( "sendCommand() done [" + JSON.stringify( fetchedJson ) + "]" );
+    })
+    .fail( function( jqxhr, textStatus, error ) {
+        var err = textStatus + ', ' + error;
+        if ( debug ) console.log( "sendCommand Request Failed: " + err );
+    })
+    .always( function() {
+        if ( debug ) console.log( "sendCommand complete" );
+    });
+}
+*/
 function promoteRecentQuery( queryId ) {
 
     if ( debug ) console.log ( "promoteRecentQuery queryId [" + queryId + "]" );
 
-    // only promote queries that aren't in pole position ( index = 0 )
-    //if ( queryId > 0 ) {
+    // copy element
+    var queryElement = $( "#query-id-" + queryId );
+    if ( debug ) console.log ( "promoteRecentQuery queryElement [" + queryElement.val() + "] found" );
 
-        // copy element
-        var queryElement = $( "#query-id-" + queryId );
-        if ( debug ) console.log ( "promoteRecentQuery queryElement [" + queryElement.val() + "] found" );
+    // detach, not remove, it
+    $( "#query-id-" + queryId ).detach();
 
-        // detach, not remove, it
-        $( "#query-id-" + queryId ).detach();
-
-        // insert into pole position
-        $( ".recent-query" ).eq( 0 ).before( queryElement );
-    //}
+    // insert into pole position
+    $( ".recent-query" ).eq( 0 ).before( queryElement );
 }
 function insertRecentQuery( transcript ) {
 
@@ -190,7 +164,7 @@ function insertRecentQuery( transcript ) {
 
     } else {
 
-        sendCommand2( selectedDevice.id, transcript );
+        sendCommand( selectedDevice.id, transcript );
     }
 
     // If we got this far then the query is new
@@ -210,7 +184,7 @@ function insertRecentQuery( transcript ) {
 
         var transcript = $( this ).text().trim();
         if ( debug ) console.log ( "newElement transcript [" + transcript + "]" );
-        sendCommand2( selectedDevice.id, transcript );
+        sendCommand( selectedDevice.id, transcript );
 
         //var queryId = $( this ).data( "query-id" );
         promoteRecentQuery( count );
@@ -218,16 +192,13 @@ function insertRecentQuery( transcript ) {
 }
 $( document ).ready( function() {
 
-    // load device information
-    getDevices();
-
     // bind events
 
-    // submit from Adina's markup
+    // submit button from Adina's markup
     $( "#submit-command-2" ).click( function( event ) {
 
         var transcript = encodeURI( $( "#phrase" ).val().trim() );
-        //sendCommand2( selectedDevice.id, transcript );
+        //sendCommand( selectedDevice.id, transcript );
 
         // add to recent query list
         insertRecentQuery( $( "#phrase" ).val().trim() );
@@ -238,7 +209,7 @@ $( document ).ready( function() {
     $( ".d-pad-btn" ).click( function( event ) {
 
         var transcript = $( this ).data( "command" );
-        sendCommand2( selectedDevice.id, transcript );
+        sendCommand( selectedDevice.id, transcript );
 
         event.preventDefault();
     });
@@ -249,7 +220,7 @@ $( document ).ready( function() {
         event.preventDefault();
 
         var transcript = $( this ).text().trim();
-        sendCommand2( selectedDevice.id, transcript );
+        sendCommand( selectedDevice.id, transcript );
 
         var queryId = $( this ).data( "query-id" );
         promoteRecentQuery( queryId );
