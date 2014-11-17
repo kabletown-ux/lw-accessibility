@@ -198,7 +198,7 @@ $( document ).ready( function() {
     $( "#submit-command-2" ).click( function( event ) {
 
         var transcript = encodeURI( $( "#phrase" ).val().trim() );
-        //sendCommand( selectedDevice.id, transcript );
+        sendCommand( selectedDevice.id, transcript );
 
         // add to recent query list
         insertRecentQuery( $( "#phrase" ).val().trim() );
