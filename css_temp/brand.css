@@ -426,6 +426,26 @@ button.recent-query-btn {
 .recent-query:first-child .recent-query-btn {
     border-top: 1px solid white;
 }
+/* recent queries -------------------------- */
+.device-list-item {
+    margin-bottom: 0;
+}
+button.device-selector {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid white;
+    border-radius: 0;
+    padding: 2ex .5em;
+    background-color: transparent;
+    color: white;
+    font-size: 18px;
+    font-size: 1.8rem;
+    text-align: left;
+    white-space: normal;
+}
+.device-list-item:first-child .device-selector {
+    border-top: 1px solid white;
+}
 /* overlays --------------------------- */
 .blocking-screen {
     position: absolute;
